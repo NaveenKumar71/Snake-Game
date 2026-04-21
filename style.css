@@ -1,0 +1,324 @@
+:root {
+    --primary-neon: #39ff14;
+    --secondary-neon: #00f3ff;
+    --accent-neon: #ff00ff;
+    --danger-neon: #ff3131;
+    --gold-neon: #ffcc00;
+    --bg-dark: #0a0a0c;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --text-main: #e0e0e0;
+    --text-dim: #a0a0a0;
+    --font-heading: 'Space Grotesk', sans-serif;
+    --font-body: 'Outfit', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-container {
+    position: relative;
+    z-index: 10;
+    width: 95vw;
+    max-width: 800px;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Glassmorphism utility */
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+/* Header Styles */
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.stat-group {
+    display: flex;
+    gap: 20px;
+}
+
+.p1 .stat-value {
+    color: var(--primary-neon);
+}
+
+.p2 .stat-value {
+    color: var(--secondary-neon);
+}
+
+.game-title h1 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--text-main);
+}
+
+.game-title span {
+    color: var(--primary-neon);
+    text-shadow: 0 0 10px var(--primary-neon);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.stat-label {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    letter-spacing: 2px;
+}
+
+.stat-value {
+    font-size: 1.4rem;
+    font-weight: 600;
+    font-family: var(--font-heading);
+    color: var(--secondary-neon);
+}
+
+/* Game Area */
+.game-area {
+    position: relative;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid var(--glass-border);
+}
+
+#gameCanvas {
+    max-width: 100%;
+    max-height: 100%;
+    image-rendering: pixelated;
+}
+
+/* Overlays */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    text-align: center;
+    transition: opacity 0.3s ease;
+}
+
+.overlay.active {
+    display: flex;
+}
+
+.overlay-content h2 {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    letter-spacing: 5px;
+}
+
+.glitch-text {
+    color: var(--secondary-neon);
+    text-shadow: 2px 2px var(--accent-neon);
+}
+
+.text-danger {
+    color: var(--danger-neon);
+    text-shadow: 0 0 20px var(--danger-neon);
+}
+
+.overlay-content p {
+    color: var(--text-dim);
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+}
+
+/* Buttons */
+.btn-primary {
+    background: var(--primary-neon);
+    color: var(--bg-dark);
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.4);
+    font-family: var(--font-heading);
+}
+
+.btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(57, 255, 20, 0.6);
+}
+
+.mode-selector {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+    justify-content: center;
+}
+
+.mode-btn {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--text-dim);
+    padding: 12px 25px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.mode-btn.active {
+    border-color: var(--primary-neon);
+    color: var(--primary-neon);
+    background: rgba(57, 255, 20, 0.1);
+    box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);
+}
+
+.difficulty-selector {
+    display: flex;
+    gap: 10px;
+    margin-top: 25px;
+    justify-content: center;
+}
+
+.diff-btn {
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    color: var(--text-dim);
+    padding: 8px 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.diff-btn.active {
+    background: var(--glass-border);
+    color: var(--text-main);
+    border-color: var(--secondary-neon);
+}
+
+/* Footer */
+.game-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.level-indicator {
+    padding: 10px 25px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.mobile-controls {
+    display: none;
+    /* Shown on small screens */
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.middle-controls {
+    display: flex;
+    gap: 10px;
+}
+
+.ctrl-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 15px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--text-main);
+    font-size: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    touch-action: manipulation;
+}
+
+.ctrl-btn:active {
+    background: var(--secondary-neon);
+    color: var(--bg-dark);
+}
+
+/* Background Blurs */
+.bg-blur {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    filter: blur(100px);
+    z-index: 1;
+    opacity: 0.4;
+}
+
+.blur-1 {
+    top: -50px;
+    left: -50px;
+    background: var(--accent-neon);
+}
+
+.blur-2 {
+    bottom: -50px;
+    right: -50px;
+    background: var(--secondary-neon);
+}
+
+/* Media Queries */
+@media (max-width: 600px) {
+    .mobile-controls {
+        display: flex;
+    }
+
+    .overlay-content h2 {
+        font-size: 2.5rem;
+    }
+
+    .game-header {
+        padding: 10px 15px;
+    }
+
+    .game-title h1 {
+        font-size: 1.2rem;
+    }
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Snake - 2 Player Arcade</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Space+Grotesk:wght@300;500;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="game-container">
+        <header class="game-header glass">
+            <div class="stat-group">
+                <div class="stat-item p1">
+                    <span class="stat-label">P1 SCORE</span>
+                    <span id="score" class="stat-value">0000</span>
+                </div>
+                <div class="stat-item p2">
+                    <span class="stat-label">P2 SCORE</span>
+                    <span id="score-p2" class="stat-value">0000</span>
+                </div>
+            </div>
+
+            <div class="game-title">
+                <h1>NEON<span>SNAKE</span></h1>
+            </div>
+
+            <div class="stat-item high-score">
+                <span class="stat-label">RECORD</span>
+                <span id="high-score" class="stat-value">0000</span>
+            </div>
+        </header>
+
+        <main class="game-area">
+            <canvas id="gameCanvas"></canvas>
+
+            <!-- UI Overlays -->
+            <div id="start-screen" class="overlay active glass">
+                <div class="overlay-content">
+                    <h2 class="glitch-text">READY?</h2>
+                    <div class="mode-selector">
+                        <button class="mode-btn active" data-players="1">1 PLAYER</button>
+                        <button class="mode-btn" data-players="2">2 PLAYERS</button>
+                    </div>
+                    <p id="controls-hint">P1: WASD / Arrows</p>
+                    <button id="start-btn" class="btn-primary">START ARCADE</button>
+                    <div class="difficulty-selector">
+                        <button class="diff-btn active" data-speed="150">EASY</button>
+                        <button class="diff-btn" data-speed="100">MEDIUM</button>
+                        <button class="diff-btn" data-speed="60">HARD</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="game-over-screen" class="overlay glass">
+                <div class="overlay-content">
+                    <h2 class="text-danger">MATCH OVER</h2>
+                    <div class="final-stats">
+                        <p id="final-score">P1: 0 | P2: 0</p>
+                        <p>High Score: <span id="final-high-score">0</span></p>
+                    </div>
+                    <button id="restart-btn" class="btn-primary">REMATCH</button>
+                </div>
+            </div>
+
+            <div id="pause-screen" class="overlay glass">
+                <div class="overlay-content">
+                    <h2>PAUSED</h2>
+                    <button id="resume-btn" class="btn-primary">RESUME</button>
+                </div>
+            </div>
+        </main>
+
+        <footer class="game-footer">
+            <div class="mobile-controls" id="mobile-controls">
+                <button class="ctrl-btn up" id="ctrl-up">▲</button>
+                <div class="middle-controls">
+                    <button class="ctrl-btn left" id="ctrl-left">◀</button>
+                    <button class="ctrl-btn right" id="ctrl-right">▶</button>
+                </div>
+                <button class="ctrl-btn down" id="ctrl-down">▼</button>
+            </div>
+            <div class="level-indicator glass">
+                LEVEL <span id="current-level">1</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Background Decoration -->
+    <div class="bg-blur blur-1"></div>
+    <div class="bg-blur blur-2"></div>
+
+    <!-- Scripts Loaded in Order -->
+    <script src="js/constants.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/snake.js"></script>
+    <script src="js/food.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/game.js"></script>
+</body>
+
+</html>
