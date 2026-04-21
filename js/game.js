@@ -12,7 +12,8 @@ class Game {
         this.playerCount = 1;
         this.highScore = localStorage.getItem('snakeHighScore') || 0;
         this.level = 1;
-        this.gameSpeed = INITIAL_SPEED;
+        this.baseSpeed = INITIAL_SPEED;
+        this.gameSpeed = this.baseSpeed;
         this.isPaused = false;
         this.isGameOver = false;
         this.gameLoopTimeout = null;
@@ -47,7 +48,8 @@ class Game {
             btn.addEventListener('click', () => {
                 document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                this.gameSpeed = parseInt(btn.dataset.speed);
+                this.baseSpeed = parseInt(btn.dataset.speed);
+                this.gameSpeed = this.baseSpeed;
             });
         });
 
@@ -78,7 +80,7 @@ class Game {
         this.food.spawn(this.tileCountX, this.tileCountY, this.snakes);
         this.score = 0;
         this.level = 1;
-        this.gameSpeed = INITIAL_SPEED;
+        this.gameSpeed = this.baseSpeed;
         this.isPaused = false;
         this.isGameOver = false;
 
@@ -154,7 +156,7 @@ class Game {
     }
 
     resetSpeed() {
-        this.gameSpeed = Math.max(MIN_SPEED, INITIAL_SPEED - (this.level - 1) * SPEED_INCREMENT);
+        this.gameSpeed = Math.max(MIN_SPEED, this.baseSpeed - (this.level - 1) * SPEED_INCREMENT);
     }
 
     checkLevelUp() {
